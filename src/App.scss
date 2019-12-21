@@ -1,0 +1,28 @@
+$multiplier: 3px;
+$sizes: ( "none": 0,
+          "xxs": 1,
+          "xs": 3,
+          "s":  4,
+          "m":  5,
+          "l":  6,
+          "xl": 7,
+          "xxl": 9);
+
+// Some padding and margin helpers.
+@each $size, $x in $sizes {
+  .padding-#{$size} { padding: $multiplier * $x !important; }
+  .padding-left-#{$size} { padding-left: $multiplier * $x !important; }
+  .padding-right-#{$size} { padding-right: $multiplier * $x !important; }
+  .padding-top-#{$size} { padding-top: $multiplier * $x !important; }
+  .padding-bottom-#{$size} { padding-bottom: $multiplier * $x !important; }
+  .margin-#{$size} { margin: $multiplier * $x !important; }
+  .margin-left-#{$size} { margin-left: $multiplier * $x !important; }
+  .margin-right-#{$size} { margin-right: $multiplier * $x !important; }
+  .margin-top-#{$size} { margin-top: $multiplier * $x !important; }
+  .margin-bottom-#{$size} { margin-bottom: $multiplier * $x !important; }
+}
+
+.strike {
+  color: light-grey;
+  text-decoration: line-through;
+}
