@@ -56,10 +56,8 @@ const PacePlanner = () => {
 
     let daysDiff = start.diff(end, 'days');
 
-    if(Math.abs(daysDiff) <= MINIMUM_SEGMENT_DAYS) {
-      setErrorMessage(`The completion date must be more than ${MINIMUM_SEGMENT_DAYS} days after the start date.`);
-      return false;
-    }
+    //Set the highlight for the minimum days message.
+    setHighlightMinimumSegment(Math.abs(daysDiff) <= MINIMUM_SEGMENT_DAYS);
 
     //Clear any pre-existing errors
     setErrorMessage(null);
@@ -124,6 +122,7 @@ const PacePlanner = () => {
   let [ pacePlanWeeks, setPacePlanWeeks ] = useState();
   let [ completedAssignments, setCompletedAssignments ] = useState([]);
   let [ errorMessage, setErrorMessage ] = useState();
+  let [ highlightMinimumSegmentError, setHighlightMinimumSegment ] = useState(false);
   let enrollmentTypeChange = (e) => setIsAdvanced(e.target.value === 'true');
 
   return (
@@ -230,7 +229,7 @@ const PacePlanner = () => {
               After generating your pace plan, click the check box next to each assignment you have completed to fine tune your pace plan. Completed assignments appear at the end of the pace plan.
             </div>
           </article>
-          <article className="message is-info">
+          <article className={highlightMinimumSegmentError ? "message is-danger" : "message is-info"}>
             <div className="message-body">
               Florida Virtual School requires students to be actively working in a segment for a minimum of {MINIMUM_SEGMENT_DAYS} calendar days in order to receive credit.
             </div>
