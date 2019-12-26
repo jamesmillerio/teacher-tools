@@ -3,7 +3,7 @@ import "bulma";
 import { HashRouter, NavLink } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSchool } from "@fortawesome/free-solid-svg-icons";
+import { faSchool, faPrint } from "@fortawesome/free-solid-svg-icons";
 import './App.scss';
 import ToolsRouter from "./components/router";
 
@@ -29,7 +29,10 @@ function App() {
           </div>
 
           <div className="navbar-end">
-
+            <button className="button is-info margin-xs" onClick={() => window.print() }>
+              <FontAwesomeIcon icon={faPrint} className="margin-right-xs" />
+              Print
+            </button>
           </div>
         </div>
       </nav>

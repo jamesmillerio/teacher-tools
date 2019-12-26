@@ -9,6 +9,7 @@ import Week from './week';
 
 const PacePlanner = () => {
 
+  const MINIMUM_SEGMENT_DAYS = 14;
   const Segments = {
     both: 0,
     one: 1,
@@ -45,13 +46,23 @@ const PacePlanner = () => {
       return false;
     }
 
-    let start = Moment(startDate, "MM/DD/YYYY").toDate();
-    let end = Moment(completionDate, "MM/DD/YYYY").toDate();
+    let start = Moment(startDate, "MM/DD/YYYY");
+    let end = Moment(completionDate, "MM/DD/YYYY");
 
-    if(end <= start) {
+    if(end.toDate() <= start.toDate()) {
       setErrorMessage("The completion date must be after the start date.");
       return false;
     }
+
+    let daysDiff = start.diff(end, 'days');
+
+    if(Math.abs(daysDiff) <= MINIMUM_SEGMENT_DAYS) {
+      setErrorMessage(`The completion date must be more than ${MINIMUM_SEGMENT_DAYS} days after the start date.`);
+      return false;
+    }
+
+    //Clear any pre-existing errors
+    setErrorMessage(null);
 
     return true;
   }
@@ -214,23 +225,27 @@ const PacePlanner = () => {
               </button>
             </div>
           </article>
+          <article className="message">
+            <div className="message-body">
+              After generating your pace plan, click the check box next to each assignment you have completed to fine tune your pace plan. Completed assignments appear at the end of the pace plan.
+            </div>
+          </article>
+          <article className="message is-info">
+            <div className="message-body">
+              Florida Virtual School requires students to be actively working in a segment for a minimum of {MINIMUM_SEGMENT_DAYS} calendar days in order to receive credit.
+            </div>
+          </article>
         </div>
         <div className="column">
-          <div className="columns">
-            <div className="column">
-              <button className="button is-info is-pulled-right" onClick={() => window.print() }>
-                <FontAwesomeIcon icon={faPrint} className="margin-right-xs" />
-                Print
-              </button>
-            </div>
-          </div>
           {pacePlanWeeks}
-          <Week title={() => "Completed Assignments"}
-                subtitle={() => "Assignments that you have already done"}
-                start={Moment(startDate, "MM/DD/YYYY").toDate()}
-                end={Moment(completionDate, "MM/DD/YYYY").toDate()}
-                assignments={completedAssignments}
-                assignmentToggle={toggleAssignment} />
+          <a id="#/pace/completed">
+            <Week title={() => "Completed Assignments"}
+                  subtitle={() => "Assignments that you have already done"}
+                  start={Moment(startDate, "MM/DD/YYYY").toDate()}
+                  end={Moment(completionDate, "MM/DD/YYYY").toDate()}
+                  assignments={completedAssignments}
+                  assignmentToggle={toggleAssignment} />
+          </a>
         </div>
       </div>
     </div>);
