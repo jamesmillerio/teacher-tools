@@ -19,8 +19,8 @@ const PacePlanner = () => {
   let calculateWeeks = (start, end) => {
     if(!start || !end) return 0;
 
-    if(typeof start === 'string') start = Moment(start, "MM/DD/YYYY").toDate();
-    if(typeof end === 'string') end = Moment(end, "MM/DD/YYYY").toDate();
+    if(typeof start === 'string') start = Moment(start).toDate();
+    if(typeof end === 'string') end = Moment(end).toDate();
 
     let diff = end.getTime() - start.getTime();
     let msPerDay = 1000 * 60 * 60 * 24;
@@ -46,8 +46,8 @@ const PacePlanner = () => {
       return false;
     }
 
-    let start = Moment(startDate, "MM/DD/YYYY");
-    let end = Moment(completionDate, "MM/DD/YYYY");
+    let start = Moment(startDate);
+    let end = Moment(completionDate);
 
     if(end.toDate() <= start.toDate()) {
       setErrorMessage("The completion date must be after the start date.");
@@ -90,7 +90,7 @@ const PacePlanner = () => {
                              .groupBy(a => Math.floor(index++ / assignmentsPerWeek))
                              .map(a => {
 
-                               let currentStartDate = Moment(startDate, "MM/DD/YYYY").toDate();
+                               let currentStartDate = Moment(startDate).toDate();
 
                                currentStartDate.setDate(currentStartDate.getDate() + week * 7);
 
