@@ -128,7 +128,7 @@ const PacePlanner = () => {
   return (
     <div className="margin-l margin-top-xl">
       <div className="columns">
-        <div className="column is-one-third">
+        <div className="column is-one-third noprint">
           <article className="panel is-info">
             <p className="panel-heading">
               Pace Plan Details
