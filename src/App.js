@@ -14,7 +14,7 @@ function App() {
         <div className="navbar-brand">
           <a className="navbar-item" href="#/">
             <FontAwesomeIcon icon={faSchool} className="margin-right-s" />
-            <strong>LA3 Teacher Tools</strong>
+            <strong>World History Teacher Tools</strong>
           </a>
         </div>
 
