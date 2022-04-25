@@ -77,7 +77,16 @@ const PacePlanner = () => {
                        .filter(s => segmentNeeded === Segments.both || s.id === segmentNeeded)
                        .map(s => s.modules)
                        .flatten()
-                       .map(m => m.assignments)
+                       .map(m => {
+
+                        //Add module to each assignment as a helper.
+                        m.assignments = m.assignments.map(a => {
+                          a.sectionModule = m.id.toString().padStart(2, "0") + "." + a.id.toString().padStart(2, "0");
+                          return a;
+                        });
+
+                        return m.assignments
+                       })
                        .flatten()
                        .value();
 
@@ -101,7 +110,8 @@ const PacePlanner = () => {
                                             start={currentStartDate}
                                             end={currentEndDate}
                                             assignments={a}
-                                            assignmentToggle={toggleAssignment} />
+                                            assignmentToggle={toggleAssignment}
+                                            module={module++} />
                              })
                              .value();
 
@@ -243,7 +253,8 @@ const PacePlanner = () => {
                   start={Moment(startDate, "MM/DD/YYYY").toDate()}
                   end={Moment(completionDate, "MM/DD/YYYY").toDate()}
                   assignments={completedAssignments}
-                  assignmentToggle={toggleAssignment} />
+                  assignmentToggle={toggleAssignment} 
+                  module="" />
           </a>
         </div>
       </div>
